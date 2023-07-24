@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Vets>
+
+    <Vet>
+
+        <Name>Michael Jordan</Name>
+
+        <Profession>Emergency and Critical Care</Profession>
+
+        <Age>45</Age>
+
+        <PhoneNumber>0897665544</PhoneNumber>
+
+    </Vet>
+
+    <Vet>
+
+        <Name>Melanie Bennington</Name>
+
+        <Profession>Surgery</Profession>
+
+        <Age>21</Age>
+
+        <PhoneNumber>+359284566778</PhoneNumber>
+
+    </Vet>
+
+    <Vet>
+
+        <Name>Edmond Halley</Name>
+
+        <Profession>Veterinary Nursing</Profession>
+
+        <Age>24</Age>
+
+        <PhoneNumber>+359284566778</PhoneNumber>
+
+    </Vet>
+
+    <Vet>
+
+        <Name>Niels Bohr</Name>
+
+        <Profession>Internal Medicine</Profession>
+
+        <Age>32</Age>
+
+        <PhoneNumber>0879557712</PhoneNumber>
+
+    </Vet>
+
+    <Vet>
+
+        <Name>Werner Heisenberg</Name>
+
+        <Profession>Pediatrics, Genetics and Reproduction</Profession>
+
+        <Age>55</Age>
+
+        <PhoneNumber>0879535712</PhoneNumber>
+
+    </Vet>
+
+</Vets>

@@ -1,0 +1,51 @@
+
+[
+  {
+
+    "Name": "Internal Deworming",
+
+    "Price": 8.00
+
+  },
+
+  {
+
+    "Name": "Fecal Test",
+
+    "Price": 7.50
+
+  },
+
+  {
+
+    "Name": "H3N8",
+
+    "Price": 30.00
+
+  },
+
+  {
+
+    "Name": "Nasal Bordetella",
+
+    "Price": 5.60
+
+  },
+
+  {
+
+    "Name": "External Deworming",
+
+    "Price": -35.00
+
+  },
+
+  {
+
+    "Name": "Bordetella",
+
+    "Price": 7.50
+
+  }
+
+]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Te1o7BHwyddLgIblOPnpCDR4CPB5XIqSI1ozkTv8kjIL/RrNBJcM0C++E+2kN+SMFi1sRGaxxIjmkV/izb4fkQ==",
+  "dgSpecHash": "1DEx7ru+AEHDKeYlkUd1leJxmSqrgc4WRb7kTMg/aVk5gE7Vw3RE8vM5Y6GM1cu1IWp9GQoqsIVOUVmW/r6p6A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\OneDrive\\Documents\\programirane\\PetClinic\\PetClinic\\PetClinic.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\OneDrive\\Documents\\PetClinic\\PetClinic\\PetClinic\\PetClinic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",

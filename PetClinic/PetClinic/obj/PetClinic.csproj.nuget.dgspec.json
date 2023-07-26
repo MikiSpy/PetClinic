@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\OneDrive\\Documents\\programirane\\PetClinic\\PetClinic\\PetClinic.csproj": {}
+    "C:\\Users\\Admin\\OneDrive\\Documents\\PetClinic\\PetClinic\\PetClinic\\PetClinic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\OneDrive\\Documents\\programirane\\PetClinic\\PetClinic\\PetClinic.csproj": {
+    "C:\\Users\\Admin\\OneDrive\\Documents\\PetClinic\\PetClinic\\PetClinic\\PetClinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Documents\\programirane\\PetClinic\\PetClinic\\PetClinic.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\OneDrive\\Documents\\PetClinic\\PetClinic\\PetClinic\\PetClinic.csproj",
         "projectName": "PetClinic",
-        "projectPath": "C:\\Users\\Admin\\OneDrive\\Documents\\programirane\\PetClinic\\PetClinic\\PetClinic.csproj",
+        "projectPath": "C:\\Users\\Admin\\OneDrive\\Documents\\PetClinic\\PetClinic\\PetClinic\\PetClinic.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\OneDrive\\Documents\\programirane\\PetClinic\\PetClinic\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\OneDrive\\Documents\\PetClinic\\PetClinic\\PetClinic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

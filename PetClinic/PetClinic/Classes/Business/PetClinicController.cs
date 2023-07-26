@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -13,15 +14,49 @@ namespace PetClinic.Classes.Business
 {
     public class PetClinicController
     {
-        // JSON import and export methods
         public void ImportDataJson(List<AnimalAid> animalAids)
         {
             using (var context = new PetClinicContext())
             {
-                context.AnimalAid.AddRange(animalAids);
-                context.SaveChanges();
+                foreach (var animalAid in animalAids)
+                {
+                    // Check if the price is positive
+                    if (animalAid.Price <= 0)
+                    {
+                        Console.WriteLine($"Error: The price for '{animalAid.Name}' must be a positive number. Skipping import.");
+                        continue;
+                    }
+
+                    // Проверка дали услугата вече съществува в базата данни
+                    if (context.AnimalAid.Any(a => a.Name == animalAid.Name))
+                    {
+                        Console.WriteLine($"Error: The service '{animalAid.Name}' already exists. Skipping import.");
+                        continue;
+                    }
+
+                    // Валидиране на обекта "animalAid" преди да се импортира
+                    var validationResults = new List<ValidationResult>();
+                    var validationContext = new ValidationContext(animalAid);
+
+                    if (!Validator.TryValidateObject(animalAid, validationContext, validationResults, true))
+                    {
+                        // Показване на грешки при невалидни данни и пропускане на вноса
+                        foreach (var result in validationResults)
+                        {
+                            Console.WriteLine($"Error: {result.ErrorMessage}. Skipping import.");
+                        }
+                        continue;
+                    }
+
+                    // Импортиране на услугата, ако премине всички проверки за валидност
+                    context.AnimalAid.Add(animalAid);
+                    context.SaveChanges();
+                    Console.WriteLine($"Record {animalAid.Name} successfully imported.");
+                }
             }
         }
+
+
         public List<AnimalAid> DeserializeJsonAnimalAid(string filePath)
         {
             try
@@ -32,8 +67,9 @@ namespace PetClinic.Classes.Business
             }
             catch (Exception ex)
             {
+                // Показване на грешка при десериализация на JSON и връщане на празен списък
                 Console.WriteLine($"Error while deserializing JSON: {ex.Message}");
-                return new List<AnimalAid>(); // Return an empty list to indicate no data was successfully deserialized.
+                return new List<AnimalAid>();
             }
         }
         public void ImportAnimalsFromJson(string filePath)
@@ -74,6 +110,7 @@ namespace PetClinic.Classes.Business
 
         private List<Animal> DeserializeJsonAnimals(string filePath)
         {
+            // Прочитане на съдържанието на JSON файл и десериализация към списък с Animal обекти
             string jsonContent = File.ReadAllText(filePath);
             List<Animal> animals = JsonSerializer.Deserialize<List<Animal>>(jsonContent);
             return animals;
@@ -83,12 +120,15 @@ namespace PetClinic.Classes.Business
         {
             using (var context = new PetClinicContext())
             {
+                // Зареждане на всички животни от базата данни с включени Passport обекти
+                // Сортиране по телефонен номер на собственика и възраст
                 var animals = context.Animal
                     .Include(a => a.Passport)
                     .OrderBy(a => a.Passport.OwnerPhoneNumber)
                     .ThenBy(a => a.Age)
                     .ToList();
 
+                // Създаване на анонимен обект за съхранение на необходимите данни
                 var animalData = animals.Select(a => new
                 {
                     OwnerName = a.Passport?.OwnerName,
@@ -98,17 +138,18 @@ namespace PetClinic.Classes.Business
                     RegisteredOn = a.Passport?.RegistrationDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)
                 }).ToList();
 
+                // Сериализация на данните в JSON формат с отстъпи и специално кодиране
                 string jsonContent = JsonSerializer.Serialize(animalData, new JsonSerializerOptions
                 {
                     WriteIndented = true,
                     Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
                 });
 
+                // Записване на JSON съдържанието в текстов файл
                 File.WriteAllText(filePath, jsonContent);
             }
         }
 
-        // XML import and export methods for Vets
         public List<Vet> DeserializeXmlVets(string filePath)
         {
             string xmlContent = File.ReadAllText(filePath);
@@ -122,14 +163,48 @@ namespace PetClinic.Classes.Business
             }
         }
 
-        // XML import and import methods for Procedures
+
         public List<Procedure> DeserializeXmlProcedure(string filePath)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Procedure>));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Procedure>), new XmlRootAttribute("Procedures"));
             using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
             {
+                
                 List<Procedure> procedures = (List<Procedure>)serializer.Deserialize(fileStream);
                 return procedures;
+            }
+        }
+        public void ImportVetsFromXML()
+        {
+            var dataImporter = new PetClinicController();
+            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = Path.Combine(folderPath, "Vets.xml");
+
+            List<Vet> vetsToImport = dataImporter.DeserializeXmlVets(filePath);
+
+            if (vetsToImport.Count > 0)
+            {
+                using (var context = new PetClinicContext())
+                {
+                    foreach (Vet vet in vetsToImport)
+                    {
+                        // Check if the vet already exists in the database
+                        if (context.Vet.Any(v => v.Name == vet.Name))
+                        {
+                            Console.WriteLine($"Error: The vet '{vet.Name}' already exists. Skipping import.");
+                            continue;
+                        }
+
+                        // Import the vet if it does not already exist
+                        context.Vet.Add(vet);
+                        context.SaveChanges();
+                        Console.WriteLine($"Record {vet.Name} successfully imported.");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No vets found in the XML file.");
             }
         }
 

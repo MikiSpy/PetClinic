@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace PetClinic.Classes.Data.Models
 {
@@ -14,7 +10,14 @@ namespace PetClinic.Classes.Data.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(30, MinimumLength = 3)]
+        [Index(IsUnique = true)]
         public string Name { get; set; }
+
+        [Required]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be a non-negative value.")]
         public decimal Price { get; set; }
 
         public List<ProcedureAnimalAid> ProcedureAnimalAids { get; set; }
